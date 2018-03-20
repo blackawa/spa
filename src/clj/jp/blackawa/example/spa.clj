@@ -29,18 +29,24 @@
                 (wrap-defaults site-defaults)))]
       (handler req))))
 
-(defn- endpoint [component]
-  ["/" {"index.html"
-        (fn [req] (res/response (str req)))
-        "api/"
-        {"books"
-         (fn [req]
-           (res/response [{:title "ダンジョン飯" :author "九井諒子"}
-                          {:title "鋼の錬金術師" :author "荒川弘"}]))}}])
+(defn- site-endpoint [component]
+  {"/index.html" (fn [req] (res/response (str req)))})
+
+(defn- api-endpoint [component]
+  {"/api"
+   {"/books"
+    (fn [req]
+      (res/response [{:title "ダンジョン飯" :author "九井諒子"}
+                     {:title "鋼の錬金術師" :author "荒川弘"}]))}})
+
+(defn- endpoint [{:keys [site-endpoint api-endpoint]}]
+  ["" (merge site-endpoint api-endpoint)])
 
 (defn system []
   (component/system-map
    :http (component/using (new-jetty :port 3000) [:handler])
    :handler (component/using (new-handler :router :bidi) [:endpoint :middleware])
    :middleware (new-middleware {:middleware [wrap]})
-   :endpoint (new-endpoint endpoint)))
+   :endpoint (component/using (new-endpoint endpoint) [:site-endpoint :api-endpoint])
+   :site-endpoint (new-endpoint site-endpoint)
+   :api-endpoint (new-endpoint api-endpoint)))
