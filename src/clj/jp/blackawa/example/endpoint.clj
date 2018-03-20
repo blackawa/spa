@@ -2,12 +2,15 @@
   (:require [jp.blackawa.example.util.response :as res]
             [jp.blackawa.example.view
              [category :as category]
+             [item :as item]
              [top :as top]]))
 
 (defn site-endpoint [component]
   {"/" (fn [req] (res/rum-ok (top/index)))
    "/categories" {["/" :category]
-                  (fn [req] (res/rum-ok (category/index {:category (get-in req [:params :category])})))}})
+                  (fn [req] (res/rum-ok (category/show {:category (get-in req [:params :category])})))}
+   "/items" {["/" :item-id]
+             (fn [req] (res/rum-ok (item/show)))}})
 
 (defn api-endpoint [component]
   {"/api"
