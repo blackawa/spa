@@ -12,22 +12,13 @@
 
 (defn- wrap [handler]
   (fn [req]
-    (let [wrap-debug
-          (fn [handler]
-            (let [_ (println "req:" req)
-                  res (handler req)
-                  _ (println "res:" res)]
-              res))
-          wrapped-handler
+    (let [wrapped-handler
           (if (clojure.string/starts-with? (:uri req) "/api")
             ;; api
-            (-> handler
-                (wrap-format)
-                (wrap-defaults api-defaults))
+            (-> handler wrap-format (wrap-defaults api-defaults))
             ;; site
-            (-> handler
-                (wrap-defaults site-defaults)))]
-      (handler req))))
+            (-> handler (wrap-defaults site-defaults)))]
+      (wrapped-handler req))))
 
 (defn- site-endpoint [component]
   {"/index.html" (fn [req] (res/response (str req)))})
