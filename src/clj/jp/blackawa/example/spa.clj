@@ -22,7 +22,7 @@
           (if (clojure.string/starts-with? (:uri req) "/api")
             ;; api
             (-> handler
-                wrap-format
+                (wrap-format)
                 (wrap-defaults api-defaults))
             ;; site
             (-> handler
@@ -39,8 +39,8 @@
       (res/response [{:title "ダンジョン飯" :author "九井諒子"}
                      {:title "鋼の錬金術師" :author "荒川弘"}]))}})
 
-(defn- endpoint [{:keys [site-endpoint api-endpoint]}]
-  ["" (merge site-endpoint api-endpoint)])
+(defn- endpoint [{{site-routes :routes} :site-endpoint {api-routes :routes} :api-endpoint}]
+  ["" (merge site-routes api-routes)])
 
 (defn system []
   (component/system-map
