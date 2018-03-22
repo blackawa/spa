@@ -1,6 +1,8 @@
 (ns jp.blackawa.example.view.category
   (:require [rum.core :as rum]
-            [jp.blackawa.example.view.layout :refer [layout]]))
+            [jp.blackawa.example.view
+             [layout :refer [layout]]
+             [partial :as partial]]))
 
 (rum/defc list-item [item]
   [:a {:href (:uri item)}
@@ -11,7 +13,7 @@
    [:div.card-content
     [:div.content
      [:p.title.is-5 (:title item)]
-     [:p.subtitle.is-6 [:span {:dangerouslySetInnerHTML {:__html "&yen;"}}] [:span (:price item)]]]]]])
+     [:p.subtitle.is-6 (partial/price (:price item))]]]]])
 
 (defn show [{:keys [category items]}]
   (layout

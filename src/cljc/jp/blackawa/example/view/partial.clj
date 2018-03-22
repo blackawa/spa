@@ -1,4 +1,5 @@
-(ns jp.blackawa.example.view.partial)
+(ns jp.blackawa.example.view.partial
+  (:require [rum.core :as rum]))
 
 (defn html-headers []
   [:head
@@ -12,3 +13,6 @@
              :defer true
              :integrity "sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
              :crossorigin "anonymous"}]])
+
+(rum/defc price [n]
+  [:span [:span {:dangerouslySetInnerHTML {:__html "&yen;"}}] [:span n]])

@@ -17,7 +17,7 @@
                         {:category category
                          :items (item-model/find-by-category category)}))))}
    "/items" {["/" :item-id]
-             (fn [req] (res/rum-ok (item/show)))}})
+             (fn [req] (res/rum-ok (item/show {:item (item-model/find-by-id (read-string (get-in req [:params :item-id])))})))}})
 
 (defn api-endpoint [component]
   {"/api"
