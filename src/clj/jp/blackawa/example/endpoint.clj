@@ -3,12 +3,19 @@
             [jp.blackawa.example.view
              [category :as category]
              [item :as item]
-             [top :as top]]))
+             [top :as top]]
+            [jp.blackawa.example.model
+             [item :as item-model]]))
 
 (defn site-endpoint [component]
   {"/" (fn [req] (res/rum-ok (top/index)))
    "/categories" {["/" :category]
-                  (fn [req] (res/rum-ok (category/show {:category (get-in req [:params :category])})))}
+                  (fn [req]
+                    (let [category (get-in req [:params :category])]
+                      (res/rum-ok
+                       (category/show
+                        {:category category
+                         :items (item-model/find-by-category category)}))))}
    "/items" {["/" :item-id]
              (fn [req] (res/rum-ok (item/show)))}})
 
