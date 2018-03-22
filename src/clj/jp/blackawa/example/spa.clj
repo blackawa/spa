@@ -7,7 +7,8 @@
             [system.components.jetty :refer [new-jetty]]
             [system.components.middleware :refer [new-middleware]]
             [jp.blackawa.example.endpoint :refer [site-endpoint api-endpoint endpoint]]
-            [jp.blackawa.example.middleware :refer [wrap]]))
+            [jp.blackawa.example.middleware :refer [wrap]]
+            [jp.blackawa.example.util.bidi]))
 
 (defn system []
   (component/system-map
