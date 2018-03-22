@@ -14,5 +14,19 @@
              :integrity "sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
              :crossorigin "anonymous"}]])
 
+(rum/defc header [{:keys [cart-item-num]}]
+  (let [items-in-cart? (and cart-item-num (pos? cart-item-num))]
+    [:nav.navbar.is-light {:role "navigation" :aria-label "main navigation"}
+     [:div.navbar-brand
+      [:a.navbar-item {:href "/"}
+       [:img {:src "/images/3pleStock.png"}]]
+      [:div.navbar-burger
+       [:span] [:span] [:span]]]
+     [:div.navbar-end.is-hidden-mobile
+      [:a
+       {:class (str "navbar-item" (if items-in-cart? " is-link" nil))}
+       [:span.icon [:i.fas.fa-shopping-cart]]
+       [:span (if items-in-cart? (format "Cart(%s)" cart-item-num) "Cart")]]]]))
+
 (rum/defc price [n]
   [:span [:span {:dangerouslySetInnerHTML {:__html "&yen;"}}] [:span n]])

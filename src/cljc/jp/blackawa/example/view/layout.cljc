@@ -5,6 +5,7 @@
   [:html
    (partial/html-headers)
    [:body
+    (partial/header {})
     [:section.section
      [:div.container
       body]]
