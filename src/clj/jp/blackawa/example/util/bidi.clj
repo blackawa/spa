@@ -20,3 +20,13 @@
   (request [k req _]
     (let [handler (match-handler k)]
       (handler req))))
+
+(defn keyword->handler
+  "find ring handler from m(ap) argument."
+  [m]
+  (extend-protocol br/Ring
+    clojure.lang.Keyword
+    (request [k req _]
+      (let [handler (get-in m [k :controller])]
+        (println handler)
+        (handler req)))))
