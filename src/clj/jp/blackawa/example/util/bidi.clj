@@ -28,5 +28,4 @@
     clojure.lang.Keyword
     (request [k req _]
       (let [handler (get-in m [k :controller])]
-        (println handler)
         (handler req)))))

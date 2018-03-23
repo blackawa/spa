@@ -9,14 +9,18 @@
             [jp.blackawa.example.endpoint :refer [endpoint]]
             [jp.blackawa.example.middleware :refer [wrap]]
             [jp.blackawa.example.util.bidi])
-  (:import [jp.blackawa.example.controller SiteTopIndexController SiteCategoryShowController SiteItemShowController]))
+  (:import [jp.blackawa.example.controller
+            SiteTopIndexController SiteCategoryShowController SiteItemShowController
+            ApiBookIndexController]))
 
 (defn system []
   (component/system-map
    :http (component/using (new-jetty :port 3000) [:handler])
    :handler (component/using (new-handler :router :bidi) [:endpoint :middleware])
    :middleware (new-middleware {:middleware [wrap]})
-   :endpoint (component/using (new-endpoint endpoint) [:site.top/index :site.category/show :site.item/show])
+   :endpoint (component/using (new-endpoint endpoint) [:site.top/index :site.category/show :site.item/show
+                                                       :api.book/index])
    :site.top/index (SiteTopIndexController.)
    :site.category/show (SiteCategoryShowController.)
-   :site.item/show (SiteItemShowController.)))
+   :site.item/show (SiteItemShowController.)
+   :api.book/index (ApiBookIndexController.)))
