@@ -1,7 +1,6 @@
 (ns jp.blackawa.example.view.item
-  (:require [jp.blackawa.example.view
-             [layout :refer [layout]]
-             [partial :as partial]]))
+  (:require [jp.blackawa.example.view.layout :refer [layout]]
+            [jp.blackawa.example.view.partial :as partial]))
 
 (defn show [{:keys [item]}]
   (layout

@@ -1,8 +1,7 @@
 (ns jp.blackawa.example.view.category
   (:require [rum.core :as rum]
-            [jp.blackawa.example.view
-             [layout :refer [layout]]
-             [partial :as partial]]))
+            [jp.blackawa.example.view.layout :refer [layout]]
+            [jp.blackawa.example.view.partial :as partial]))
 
 (rum/defc list-item [item]
   [:a {:href (:uri item)}

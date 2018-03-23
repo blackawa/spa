@@ -12,7 +12,8 @@
    [:script {:src "https://use.fontawesome.com/releases/v5.0.8/js/all.js"
              :defer true
              :integrity "sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ"
-             :crossorigin "anonymous"}]])
+             :crossorigin "anonymous"}]
+   [:script {:src "/js/main.js"}]])
 
 (rum/defc header [{:keys [cart-item-num]}]
   (let [items-in-cart? (and cart-item-num (pos? cart-item-num))]
