@@ -22,6 +22,9 @@
 
 (defmethod transform :view
   [state {k :handler}]
-  (let [view-map {:site.top/index 8;; top/index
-                  }]
-    (assoc state :view (k view-map))))
+  (let [view-map {:site.top/index top/index}]
+    (assoc state :view (or (k view-map) top/index))))
+
+(defmethod transform :sample
+  [state value]
+  (assoc state :sample value))
