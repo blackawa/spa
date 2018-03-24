@@ -1,6 +1,6 @@
 (ns jp.blackawa.example.flow
   (:require [cljs.core.async :refer [chan put! <!]]
-            [jp.blackawa.example.transformer.view])
+            [jp.blackawa.example.view.top :as top])
   (:require-macros [cljs.core.async.macros :refer [go go-loop]]))
 
 ;; FIXME: Use stuartsierra's component to manage stateful objects.
@@ -17,6 +17,11 @@
 (go-loop []
   (when-let [a (<! actions)]
     (let [[type data] a]
-      (println "Handling action" type)
       (swap! state transform data dispatch type))
     (recur)))
+
+(defmethod transform :view
+  [state {k :handler}]
+  (let [view-map {:site.top/index 8;; top/index
+                  }]
+    (assoc state :view (k view-map))))
