@@ -1,6 +1,7 @@
 (ns jp.blackawa.example.spa
   (:gen-class)
-  (:require [bidi.ring]
+  (:require [bidi.bidi]
+            [bidi.ring]
             [com.stuartsierra.component :as component]
             [system.components.endpoint :refer [new-endpoint]]
             [system.components.handler :refer [new-handler]]
