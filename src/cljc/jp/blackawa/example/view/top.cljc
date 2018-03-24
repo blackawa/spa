@@ -2,4 +2,4 @@
   (:require [jp.blackawa.example.view.layout :refer [layout]]))
 
 (defn index []
-  (layout [:h1.title "Hello from root."]))
+  [:h1.title "Hello from root."])

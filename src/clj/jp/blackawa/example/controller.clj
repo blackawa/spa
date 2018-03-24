@@ -4,6 +4,7 @@
             [jp.blackawa.example.view
              [category :as category]
              [item :as item]
+             [layout :refer [layout]]
              [top :as top]]
             [jp.blackawa.example.model
              [item :as item-model]]))
@@ -11,7 +12,7 @@
 (defrecord SiteTopIndexController []
   component/Lifecycle
   (start [component]
-    (assoc component :controller (fn [req] (res/rum-ok (top/index)))))
+    (assoc component :controller (fn [req] (res/rum-ok (layout (top/index))))))
   (stop [component] (dissoc component :controller)))
 
 (defrecord SiteCategoryShowController []
