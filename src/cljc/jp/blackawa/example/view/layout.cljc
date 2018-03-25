@@ -17,7 +17,11 @@
             :on-change #?(:clj nil :cljs #(dispatch :change-name (.. % -target -value)))}]])
 
 (rum/defc app < rum/reactive [state]
-  (form (rum/react state)))
+  [:div
+   (partial/header)
+   [:.section
+    [:.container
+     (form (rum/react state))]]])
 
 (defn layout [& body]
   [:html
