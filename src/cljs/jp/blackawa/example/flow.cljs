@@ -20,11 +20,21 @@
       (swap! state transform data dispatch type))
     (recur)))
 
-(defmethod transform :view
+(defmethod transform :change-current-view
   [state {k :handler}]
   (let [view-map {:site.top/index top/index}]
-    (assoc state :view (or (k view-map) top/index))))
+    (assoc state :current-view (or (k view-map) top/index))))
 
 (defmethod transform :change-name
   [state value]
   (assoc state :name value))
+
+(defmethod transform :change-url
+  [state value]
+  (dispatch :change-view-keyword-by-url value)
+  (assoc state :url value))
+
+(defmethod transform :change-view-keyword-by-url
+  [state value]
+  (let [{k :handler} (bidi.bidi/match-route jp.blackawa.example.route/route value)]
+    (assoc state :view-kw k)))

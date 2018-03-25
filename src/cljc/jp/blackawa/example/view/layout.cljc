@@ -14,7 +14,11 @@
    [:h1 (str "Hello, " (:name state))]
    [:input {:type "input"
             :value (or (:name state) "")
-            :on-change #?(:clj nil :cljs #(dispatch :change-name (.. % -target -value)))}]])
+            :on-change #?(:clj nil :cljs #(dispatch :change-name (.. % -target -value)))}]
+   [:h1 (str "View keyword: " (:view-kw state))]
+   [:input {:type "input"
+            :value (or (:url state) "")
+            :on-change #?(:clj nil :cljs #(dispatch :change-url (.. % -target -value)))}]])
 
 (rum/defc app < rum/reactive [state]
   [:div
