@@ -2,7 +2,7 @@
   (:require [accountant.core :as accountant]
             [bidi.bidi :refer [match-route]]
             [rum.core :as rum]
-            [jp.blackawa.example.flow :refer [dispatch]]
+            [jp.blackawa.example.flow :as flow]
             [jp.blackawa.example.route :refer [route]]
             [jp.blackawa.example.view.layout :as layout]))
 
@@ -11,13 +11,8 @@
 (if goog.DEBUG
   (println "Start debug mode :)"))
 
-(when-let [app (.getElementById js/document "app")]
-  (accountant/configure-navigation!
-   {:nav-handler
-    (fn [path]
-      (dispatch :view (match-route route path)))
-    :path-exists?
-    (fn [path]
-      (some? (match-route route path)))})
-  (accountant/dispatch-current!)
-  (rum/mount (layout/app) app))
+(when-let [app (js/document.getElementById "app")]
+  (rum/mount (layout/app flow/state) app))
+
+(defn on-js-reload []
+  (swap! flow/state update-in [:__figwheel_counter] inc))

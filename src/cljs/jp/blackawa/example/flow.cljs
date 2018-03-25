@@ -25,6 +25,6 @@
   (let [view-map {:site.top/index top/index}]
     (assoc state :view (or (k view-map) top/index))))
 
-(defmethod transform :sample
+(defmethod transform :change-name
   [state value]
-  (assoc state :sample value))
+  (assoc state :name value))
